@@ -1,7 +1,9 @@
 # Для работы с Google groups нужно установить пакеты
 # pip install selenium
 # pip install anticaptcha
-# И установить Web driver
+# pip install webdriver-manager
+# и установить последний forefox (chrome ругается)
+
 import pickle
 import os.path
 import time
@@ -10,6 +12,7 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 from selenium import webdriver
 from python_anticaptcha import AnticaptchaClient, NoCaptchaTaskProxylessTask
+from webdriver_manager.firefox import GeckoDriverManager
 
 # Данные для работы с google groups
 GOOGLE_EMAIL = "ewewewew@gmail.com"
@@ -111,7 +114,7 @@ def insert_anticaptcha_solution(driver, group_name):
 
 
 def send_invait(list_of_emails, group_name):
-    driver = webdriver.Firefox()
+    driver = webdriver.Firefox(executable_path=GeckoDriverManager().install())
     driver.get("https://accounts.google.com/signin/v2/identifier?flowName=GlifWebSignIn&flowEntry=ServiceLogin")
     print(driver.title)
     time.sleep(2)
